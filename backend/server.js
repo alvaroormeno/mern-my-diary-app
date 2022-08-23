@@ -11,7 +11,7 @@ require('dotenv').config()
 
 
 // IMPORT ROUTES TO BE USED WITH API MAIN ROUTE
-const entryRoute = require('./routes/entry')
+const entryRoute = require('./routes/entries.js')
 // API MAIN ROUTE
 // - Will use different routes from routes.js and each route its respective controller in controller.js
 app.use('/api/entry', entryRoute)
