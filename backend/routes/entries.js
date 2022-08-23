@@ -7,9 +7,11 @@ const express = require('express');
 // Require express router
 const router = express.Router();
 
+const { getEntries } = require('../controllers/entryController.js')
+
 
 // ROUTE 1
-router.get('/' getEntries)
+router.get('/', getEntries)
 
 
 module.exports = router
