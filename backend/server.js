@@ -7,7 +7,11 @@ const app = express();
 // REQUIRE dotenv TO ACCESS ENVIRONMENT VARIABLES IN THE .ENV FILE
 require('dotenv').config()
 
+// REQUIRE connectDB function from db.js
+const connectDB = require('./config/db.js')
 
+// Run function to connect to MongoDB from db.js file
+connectDB()
 
 
 // IMPORT ROUTES TO BE USED WITH API MAIN ROUTE
