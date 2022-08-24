@@ -60,6 +60,52 @@ const registerUser = async (req, res) => {
 // Route - GET /api/user/login
 const loginUser = async (req, res) => {
 
+  try {
+    // STEP 1 ->
+    // Check if users email is already on saved on database.
+    // If email is not found return error message and stop.
+    // .findOne() will return a complete array of users that match the criteria specified.
+    const userEmailExists = await UserModel.findOne({
+      email: req.body.email,
+    });
+    if(!userEmailExists) {
+      return res.status(400).json({ error: 'There is a problem with your login credentials'})
+    };
+
+    // STEP 2 ->
+    // If email on step 1 is found, compare the request password with password from database.
+    // If passwords dont match, return error and stop
+    const passwordMatch = await bycrypt.compare(req.body.password, UserModel.password)
+    if(!passwordMatch) {
+      return res.status(400).json({ error: 'There is a problem with your login credentials'})
+    };
+
+    // STEP 3 -> 
+    // Create token based on the user._id which then will be encoded using JWT
+    const payloadToken = {userId: UserModel._id};
+    const token = jwt.sign(payloadToken, process.env.JWT_SECRET, {expiresIn: '7d'})
+    // Use created token to set cookie. / Note: .cookie(name, value, options)
+    res.cookie("acess-token", token, {
+      // expiration option
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    })
+
+    // STEP 4 ->
+    // Return logged user as a response
+    return res.json({
+      _id: UserModel._id,
+      name: UserModel.name,
+      email: UserModel.email,
+    })
+
+  } catch (error) {
+    // STEP 5 ->
+    // If error, console.log the error, set status to error code and send error message
+    console.log(error)
+    res.status(400).json({error: 'Invalid Credentials'})
+  }
+
+  
 }
 
 
