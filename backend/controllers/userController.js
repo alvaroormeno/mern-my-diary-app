@@ -91,11 +91,12 @@ const loginUser = async (req, res) => {
     })
 
     // STEP 4 ->
-    // Return logged user as a response
+    // Return logged user as a response including the token created.
     return res.json({
       _id: UserModel._id,
       name: UserModel.name,
       email: UserModel.email,
+      token: token,
     })
 
   } catch (error) {
