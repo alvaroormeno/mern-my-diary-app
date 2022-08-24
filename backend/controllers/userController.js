@@ -3,6 +3,8 @@ const { userInfo } = require('os');
 const UserModel = require('../models/userModel.js')
 // Import bycrypt to hash password
 const bycrypt = require('bcryptjs')
+// Import jwt
+const jwt = require('jsonwebtoken')
 // Import authenticaton middlewear
 const requiresAuth = require('../middlewear/authentication.js')
 
@@ -61,6 +63,9 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
   try {
+
+    const {name, email, password} = req.body;
+
     // STEP 1 ->
     // Check if users email is already on saved on database.
     // If email is not found return error message and stop.
@@ -69,15 +74,15 @@ const loginUser = async (req, res) => {
       email: req.body.email,
     });
     if(!userEmailExists) {
-      return res.status(400).json({ error: 'There is a problem with your login credentials'})
+      return res.status(400).json({ error: 'There is a problem with your login credentials 1'})
     };
 
     // STEP 2 ->
     // If email on step 1 is found, compare the request password with password from database.
     // If passwords dont match, return error and stop
-    const passwordMatch = await bycrypt.compare(req.body.password, UserModel.password)
+    const passwordMatch = await bycrypt.compare(password, userEmailExists.password)
     if(!passwordMatch) {
-      return res.status(400).json({ error: 'There is a problem with your login credentials'})
+      return res.status(400).json({ error: 'There is a problem with your login credentials 2'})
     };
 
     // STEP 3 -> 
@@ -93,9 +98,9 @@ const loginUser = async (req, res) => {
     // STEP 4 ->
     // Return logged user as a response including the token created.
     return res.json({
-      _id: UserModel._id,
-      name: UserModel.name,
-      email: UserModel.email,
+      _id: userEmailExists._id,
+      name: userEmailExists.name,
+      email: userEmailExists.email,
       token: token,
     })
 
