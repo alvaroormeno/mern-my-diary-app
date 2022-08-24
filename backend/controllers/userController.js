@@ -22,10 +22,10 @@ const registerUser = async (req, res) => {
     //Resond back the new user
     res.status(200).json(
       {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        password: user.password
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password
       }
     )
 

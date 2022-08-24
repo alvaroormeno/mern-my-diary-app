@@ -9,17 +9,16 @@ const Entry = require('../models/entryModel.js')
 const getEntries = async (req, res) => {
 
   try {
+
     const entries = await Entry.find()
-
     res.status(200).json(entries)
+
   } catch (error) {
+
     console.log(error)
-    
+    return res.status(500).send(error.message)
+
   }
-
-
-
-  // res.send('Works, here are all the entries')
 }
 
 
