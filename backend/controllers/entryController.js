@@ -3,6 +3,8 @@
 
 // Import Entry Model
 const Entry = require('../models/entryModel.js')
+// Import authenticaton middlewear
+const requiresAuth = require('../middlewear/authentication.js')
 
 // Description - GET ALL ENTRIES
 // Route - GET /api/entry
@@ -24,7 +26,7 @@ const getEntries = async (req, res) => {
 
 // Description - CREATE NEW ENTRY
 // Route - PUT /api/entry/new
-const createEntry = async (req, res) => {
+const createEntry =  async (req, res) => {
 
   try {
     const newEntry = await Entry.create({
