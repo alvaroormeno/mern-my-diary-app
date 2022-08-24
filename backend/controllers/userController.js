@@ -10,6 +10,16 @@ const registerUser = async (req, res) => {
     //Deconstruct body data from req.body
     const {name, email, password} = req.body;
 
+    // Check first if there is a user registered with the same email
+    const userEmailExists = await UserModel.findOne(
+      {
+        email: req.body.email
+      }
+    );
+    if(userEmailExists) {
+      return res.status(500).json({error: "Email is already in use for another regsitered User!"})
+    }
+
     //Create the user
     const newUser = await UserModel.create(
       {
