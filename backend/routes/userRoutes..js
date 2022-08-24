@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 // ROUTE GET ALL USERS
-router.get('/', getEntries)
+router.get('/register', getEntries)
 
 
 module.exports = router
