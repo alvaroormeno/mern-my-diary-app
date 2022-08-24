@@ -11,22 +11,38 @@ const getEntries = async (req, res) => {
 
 const createEntry = async (req, res) => {
 
+  // try {
+  //   const newEntry = new Entry ({
+  //     content: req.body.content,
+  //   })
+
+  //   await newEntry.save()
+
+  //   return res.status(200).json(newEntry)
+
+  // } catch (error) {
+  //   console.log(error)
+    
+  // }
+
   try {
-    const newEntry = new Entry ({
+    const newEntry = await Entry.create({
       content: req.body.content,
     })
-
-    await newEntry.save()
 
     return res.status(200).json(newEntry)
 
   } catch (error) {
-    console.log(error)
+    console.log("here is error" + error)
+    return res.status(500).send(error.message)
     
   }
 
-  
 
+  
+   
+    
+  
   
 }
 
