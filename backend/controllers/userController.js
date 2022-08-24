@@ -1,6 +1,8 @@
 // Import Entry Model
 const { userInfo } = require('os');
 const UserModel = require('../models/userModel.js')
+// Import bycrypt to hash password
+const bycrypt = require('bcryptjs')
 
 
 // Description - REGISTER NEW USER
@@ -20,12 +22,15 @@ const registerUser = async (req, res) => {
       return res.status(500).json({error: "Email is already in use for another regsitered User!"})
     }
 
+    // Hash password for security
+    const hashedPassword = await bycrypt.hash(req.body.password, 12)
+
     //Create the user
     const newUser = await UserModel.create(
       {
         name: name,
         email: email,
-        password: password,
+        password: hashedPassword,
       }
     )
 
