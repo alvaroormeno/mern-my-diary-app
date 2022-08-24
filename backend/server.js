@@ -10,6 +10,9 @@ require('dotenv').config()
 // REQUIRE connectDB function from db.js
 const connectDB = require('./config/db.js')
 
+// REQUIRE cookieParser to use as middlewear
+const cookieParser = require('cookie-parser')
+
 // Run function to connect to MongoDB from db.js file
 connectDB()
 
@@ -24,7 +27,9 @@ const userRoute = require('./routes/userRoutes.js')
 // Express middleware service - recognizes the incoming Request Object as a JSON Object.
 app.use(express.json());
 // Express middleware service - recognizes the incoming Request Object as Strings or Arrays.
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}));
+// Middleware to read and set cookies in request
+app.use(cookieParser());
 
 
 // API MAIN ROUTES
