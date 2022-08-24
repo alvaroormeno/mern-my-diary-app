@@ -4,7 +4,7 @@ const UserModel = require('../models/userModel.js')
 // Import bycrypt to hash password
 const bycrypt = require('bcryptjs')
 // Import authenticaton middlewear
-const requiresAuth = require()
+const requiresAuth = require('../middlewear/authentication.js')
 
 
 // Description - REGISTER NEW USER
@@ -58,11 +58,11 @@ const registerUser = async (req, res) => {
 
 // Description - LOGIN USER
 // Route - GET /api/user/login
-const loginuser = async (req, res) => {
+const loginUser = async (req, res) => {
 
 }
 
 
 
 
-module.exports = { registerUser, loginuser}
+module.exports = { registerUser, loginUser}
