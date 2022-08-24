@@ -4,16 +4,32 @@
 // Import Entry Model
 const Entry = require('../models/entryModel.js')
 
-
+// Description - GET ALL ENTRIES
+// Route - GET /api/entry
 const getEntries = async (req, res) => {
-  res.send('Works, here are all the entries')
+
+  try {
+    const entries = await Entry.find()
+
+    res.status(200).json(entries)
+  } catch (error) {
+    console.log(error)
+    
+  }
+
+
+
+  // res.send('Works, here are all the entries')
 }
 
+
+// Description - CREATE NEW ENTRY
+// Route - PUT /api/entry/new
 const createEntry = async (req, res) => {
 
   try {
     const newEntry = await Entry.create({
-      user: req.body._id,
+      user: req.user._id,
       content: req.body.content,
     })
 
