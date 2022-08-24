@@ -16,6 +16,7 @@ connectDB()
 
 // IMPORT ROUTES TO BE USED WITH API MAIN ROUTE
 const entryRoute = require('./routes/entryRoutes.js')
+const userRoute = require('./routes/userRoutes.js')
 
 
 
@@ -29,7 +30,7 @@ app.use(express.urlencoded({extended: true}))
 // API MAIN ROUTES
 // - Will use different routes from routes.js and each route its respective controller in controller.js
 app.use('/api/entry', entryRoute)
-app.use('/api/user')
+app.use('/api/user', userRoute)
 
 
 // Connect and listen to Express server using PORT from .env file
