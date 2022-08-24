@@ -64,8 +64,6 @@ const loginUser = async (req, res) => {
 
   try {
 
-    const {name, email, password} = req.body;
-
     // STEP 1 ->
     // Check if users email is already on saved on database.
     // If email is not found return error message and stop.
@@ -80,7 +78,7 @@ const loginUser = async (req, res) => {
     // STEP 2 ->
     // If email on step 1 is found, compare the request password with password from database.
     // If passwords dont match, return error and stop
-    const passwordMatch = await bycrypt.compare(password, userEmailExists.password)
+    const passwordMatch = await bycrypt.compare(req.body.password, userEmailExists.password)
     if(!passwordMatch) {
       return res.status(400).json({ error: 'There is a problem with your login credentials 2'})
     };
