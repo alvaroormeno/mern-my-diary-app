@@ -13,23 +13,25 @@ const requiresAuth = require('../middlewear/authentication.js')
 // Route - GET /api/user/register
 const registerUser = async (req, res) => {
   try {
-    //Deconstruct body data from req.body
-    const {name, email, password} = req.body;
 
-    // Check first if there is a user registered with the same email
-    const userEmailExists = await UserModel.findOne(
-      {
-        email: req.body.email
-      }
-    );
+    // STEP 1 ->
+    // Check if users email is already on saved on database.
+    // If email is not found return error message and stop.
+    // .findOne() will return a complete array of users that match the criteria specified.
+    const userEmailExists = await UserModel.findOne({
+      email: req.body.email
+    });
     if(userEmailExists) {
       return res.status(500).json({error: "Email is already in use for another regsitered User!"})
     }
-
+    
+    // STEP 2 ->
+    // If email on step 1 is found, hash the request password with bycrypt
     // Hash password for security
     const hashedPassword = await bycrypt.hash(req.body.password, 12)
 
-    //Create the user
+    // STEP 3 ->
+    //Create the user in database
     const newUser = await UserModel.create(
       {
         name: name,
@@ -37,8 +39,9 @@ const registerUser = async (req, res) => {
         password: hashedPassword,
       }
     )
-
-    //Resond back the new user
+    
+    //STEP 4 ->
+    //After creating user in DB, respond the user created data to confirm.
     res.status(200).json(
       {
         _id: newUser._id,
@@ -49,8 +52,10 @@ const registerUser = async (req, res) => {
     )
 
   } catch (error) {
+    // STEP 5 ->
+    // If error, console.log the error, set status to error code and send error message
     console.log(error)
-    res.send("New User Registered Successful")
+    res.send(error.message)
     
   }
 }
