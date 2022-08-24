@@ -15,7 +15,7 @@ connectDB()
 
 
 // IMPORT ROUTES TO BE USED WITH API MAIN ROUTE
-const entryRoute = require('./routes/entries.js')
+const entryRoute = require('./routes/entryRoutes.js')
 
 
 
