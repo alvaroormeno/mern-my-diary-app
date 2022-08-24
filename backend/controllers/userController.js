@@ -3,6 +3,8 @@ const { userInfo } = require('os');
 const UserModel = require('../models/userModel.js')
 // Import bycrypt to hash password
 const bycrypt = require('bcryptjs')
+// Import authenticaton middlewear
+const requiresAuth = require()
 
 
 // Description - REGISTER NEW USER

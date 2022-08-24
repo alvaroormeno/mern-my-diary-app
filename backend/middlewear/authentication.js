@@ -11,3 +11,5 @@ const requiresAuth = async (req, res, next) => {
     res.json({comment: 'auth works'})
   }
 }
+
+module.exports = requiresAuth
