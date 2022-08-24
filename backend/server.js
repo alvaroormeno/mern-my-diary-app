@@ -26,9 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 
-// API MAIN ROUTE
+// API MAIN ROUTES
 // - Will use different routes from routes.js and each route its respective controller in controller.js
 app.use('/api/entry', entryRoute)
+app.use('/api/user')
 
 
 // Connect and listen to Express server using PORT from .env file
