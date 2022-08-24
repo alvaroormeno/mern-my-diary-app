@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
 
     // STEP 3 -> 
     // Create token based on the user._id which then will be encoded using JWT
-    const payloadToken = {userId: UserModel._id};
+    const payloadToken = {userId: userEmailExists._id};
     const token = jwt.sign(payloadToken, process.env.JWT_SECRET, {expiresIn: '7d'})
     // Use created token to set cookie. / Note: .cookie(name, value, options)
     res.cookie("acess-token", token, {
