@@ -15,7 +15,7 @@ const { getEntries, createEntry } = require('../controllers/entryController.js')
 router.get('/', getEntries)
 
 // ROUTE POST A NEW ENTRY
-router.post('/', createEntry)
+router.post('/new', createEntry)
 
 
 // Export controllers
