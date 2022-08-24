@@ -4,13 +4,13 @@
 const mongoose = require('mongoose')
 
 
-const EntrySchema = new Schema(
+const entrySchema = mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User'
-    },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    //   ref: 'User'
+    // },
     content: {
       type: String,
       required: true,
@@ -24,4 +24,4 @@ const EntrySchema = new Schema(
 
 
 // Export the schema with mongoose.model. First param is the name (Entry), second is the schema we are exporting with the name of Goal.
-module.exports = mongoose.model('Entry', EntrySchema)
+module.exports = mongoose.model('Entry', entrySchema)
