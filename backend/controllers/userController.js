@@ -53,4 +53,16 @@ const registerUser = async (req, res) => {
   }
 }
 
-module.exports = { registerUser}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// Description - LOGIN USER
+// Route - GET /api/user/login
+const loginuser = async (req, res) => {
+
+}
+
+
+
+
+module.exports = { registerUser, loginuser}
