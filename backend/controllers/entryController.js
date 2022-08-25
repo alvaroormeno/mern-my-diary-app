@@ -6,7 +6,11 @@ const EntryModel = require('../models/entryModel.js')
 // Import authenticaton middlewear
 const requiresAuth = require('../middleware/authentication.js')
 
-// Description - GET ALL ENTRIES
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// FOR TESTING!
+// Description - GET ALL ENTRIES 
 // Route - GET /api/entry
 const getEntries = async (req, res) => {
 
@@ -23,26 +27,8 @@ const getEntries = async (req, res) => {
   }
 }
 
-
-// // Description - CREATE NEW ENTRY
-// // Route - PUT /api/entry/new
-// const createEntry =  async (req, res) => {
-
-//   try {
-//     const newEntry = await Entry.create({
-//       user: req.user._id,
-//       content: req.body.content,
-//     })
-
-//     return res.status(200).json(newEntry)
-
-//   } catch (error) {
-//     console.log("here is error" + error)
-//     return res.status(500).send(error.message)
-    
-//   }
-
-// }
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 // Description - CREATE NEW ENTRY
 // Route - PUT /api/entry/new
@@ -68,6 +54,9 @@ const createEntry =  async (req, res) => {
   }
 }
 
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
 // Description - GET USERS ENTRIES
 // Route - GET /api/entry/user
 // PRIVATE - uses requiresAuth middleware
@@ -83,4 +72,18 @@ const getUsersEntries = async (req, res) => {
   }
 }
 
-module.exports = { getEntries, createEntry, getUsersEntries}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// Description - DELETE USERS ENTRY
+// Route - DELETE /api/entry/user
+// PRIVATE - uses requiresAuth middleware
+const deleteEntry = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+module.exports = { getEntries, createEntry, getUsersEntries, deleteEntry}

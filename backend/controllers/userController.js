@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken')
 // Import authenticaton middlewear
 const requiresAuth = require('../middleware/authentication.js')
 
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 // Description - REGISTER NEW USER
 // Route - GET /api/user/register
