@@ -68,4 +68,19 @@ const createEntry =  async (req, res) => {
   }
 }
 
+// Description - GET USERS ENTRIES
+// Route - GET /api/entry/user
+// PRIVATE - uses requiresAuth middleware
+const getUsersEntries = async (req, res) => {
+  try {
+    const usersEntries = await EntryModel.find({
+      user: req.user._id
+    })
+
+    res.json(usersEntries)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = { getEntries, createEntry}
