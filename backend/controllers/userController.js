@@ -93,7 +93,7 @@ const loginUser = async (req, res) => {
     const payloadToken = {userId: userEmailExists._id};
     const token = jwt.sign(payloadToken, process.env.JWT_SECRET, {expiresIn: '7d'})
     // Use created token to set cookie. / Note: .cookie(name, value, options)
-    res.cookie("acess-token", token, {
+    res.cookie("access-token", token, {
       // expiration option
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     })

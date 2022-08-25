@@ -2,6 +2,9 @@
 // - We dont want to clutter server.js by having all of our routes there. Therefore in this file we will have all of our routes which we can export and then import them in server.js.
 ////////////////////////////////////////////////////////////////////
 
+// Import authenticaton middlewear
+const requiresAuth = require('../middlewear/authentication.js')
+
 // Require express
 const express = require('express');
 // Require express router
@@ -15,7 +18,7 @@ const { getEntries, createEntry } = require('../controllers/entryController.js')
 router.get('/', getEntries)
 
 // ROUTE POST A NEW ENTRY
-router.post('/new', createEntry)
+router.post('/new', requiresAuth, createEntry)
 
 
 // Export controllers

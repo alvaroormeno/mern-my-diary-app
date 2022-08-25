@@ -2,13 +2,15 @@ const UserModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
 const requiresAuth = async (req, res, next) => {
+
+  
   //Grab token
   const token = req.cookies["access-token"]
   // Create isAuthed variable with default value of false. If token can be verifies, the value will change to true.
   let isAuthed = false
 
   if(token) {
-
+  res.send('heloooooooooo')
     try {
       
       // deconstruct token to get userID which is the payload converted into token in login call
@@ -19,11 +21,7 @@ const requiresAuth = async (req, res, next) => {
 
       // if user is found return found user minus password and change is authed to true
       if(userFound) {
-        req.user = {
-          _id: userFound._id,
-          email: userFound.email,
-          name: userFound.name,
-        }
+        req.user = userFound
         isAuthed = true
       }
 
@@ -32,14 +30,17 @@ const requiresAuth = async (req, res, next) => {
       isAuthed = false
     }
 
+    
+    
+  }
+
     // if isauthed is true, then we can continue with the call
     if(isAuthed) {
       return next()
     } else {
       return res.status(401).send('NOT AUTHORISED')
     }
-    
-  }
+
 }
 
 module.exports = requiresAuth
