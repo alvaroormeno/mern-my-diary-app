@@ -80,21 +80,27 @@ const getUsersEntries = async (req, res) => {
 // PRIVATE - uses requiresAuth middleware
 const deleteEntry = async (req, res) => {
   try {
+    // STEP 1 ->
+    // Find the entry to delete based on the entry _id from the url params
     const entryToDelete = await EntryModel.findOne({
-      user: req.user._id,
       _id: req.params.entryId
     })
-
+    // STEP 2 ->
+    // If entry was not found in step 1, set status to error code and send error message
     if(!entryToDelete) {
       return res.status(404).json({error: "Entry to delete not found"})
     }
-
+    // STEP 3 ->
+    // Delete the found entry saved in entryToDelete variable in step 1 with remove method.
+    // Respond with success status and send the deleted entry id as confirmation
     await entryToDelete.remove()
-
     res.status(200).json({deleted_entry_id: req.params.entryId})
     
+  // STEP 4 ->
+  // If error in try section, console.log error and send error message with error status.
   } catch (error) {
-    
+    console.log(error);
+    return res.status(500).send(error.message);
   }
 }
 
