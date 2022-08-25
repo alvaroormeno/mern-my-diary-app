@@ -10,7 +10,6 @@ const requiresAuth = async (req, res, next) => {
   let isAuthed = false
 
   if(token) {
-  res.send('heloooooooooo')
     try {
       
       // deconstruct token to get userID which is the payload converted into token in login call
