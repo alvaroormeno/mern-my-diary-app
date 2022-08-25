@@ -24,7 +24,7 @@ router.post('/new', requiresAuth, createEntry)
 router.get('/user', requiresAuth, getUsersEntries)
 
 // ROUTE - DELETE USER'S ENTRIES
-router.delete('/user', requiresAuth, deleteEntry)
+router.delete('/user/:entryId', requiresAuth, deleteEntry)
 
 
 // Export controllers
