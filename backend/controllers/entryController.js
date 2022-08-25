@@ -83,4 +83,4 @@ const getUsersEntries = async (req, res) => {
   }
 }
 
-module.exports = { getEntries, createEntry}
+module.exports = { getEntries, createEntry, getUsersEntries}
