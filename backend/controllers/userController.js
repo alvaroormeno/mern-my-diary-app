@@ -6,7 +6,7 @@ const bycrypt = require('bcryptjs')
 // Import jwt
 const jwt = require('jsonwebtoken')
 // Import authenticaton middlewear
-const requiresAuth = require('../middlewear/authentication.js')
+const requiresAuth = require('../middleware/authentication.js')
 
 
 // Description - REGISTER NEW USER

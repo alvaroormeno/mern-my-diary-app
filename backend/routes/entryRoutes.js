@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////
 
 // Import authenticaton middlewear
-const requiresAuth = require('../middlewear/authentication.js')
+const requiresAuth = require('../middleware/authentication.js')
 
 // Require express
 const express = require('express');

@@ -4,7 +4,7 @@
 // Import Entry Model
 const EntryModel = require('../models/entryModel.js')
 // Import authenticaton middlewear
-const requiresAuth = require('../middlewear/authentication.js')
+const requiresAuth = require('../middleware/authentication.js')
 
 // Description - GET ALL ENTRIES
 // Route - GET /api/entry
