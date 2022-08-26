@@ -15,7 +15,6 @@ const requiresAuth = require('../middleware/authentication.js')
 // Route - GET /api/user/register
 const registerUser = async (req, res) => {
   try {
-
     // STEP 1 ->
     // Check if users email is already on saved on database.
     // If email is not found return error message and stop.
@@ -26,12 +25,10 @@ const registerUser = async (req, res) => {
     if(userEmailExists) {
       return res.status(500).json({error: "Email is already in use for another regsitered User!"})
     }
-    
     // STEP 2 ->
     // If email on step 1 is found, hash the request password with bycrypt
     // Hash password for security
     const hashedPassword = await bycrypt.hash(req.body.password, 12)
-
     // STEP 3 ->
     //Create the user in database
     const newUser = await UserModel.create(
@@ -41,26 +38,25 @@ const registerUser = async (req, res) => {
         password: hashedPassword,
       }
     )
-
     // STEP 4 ->
     // Create token based on user id which will be encoded by JWT and saved as cookie.
     // This will let newly registered user be able to continue using site without having to login.
     const payloadToken = {userId: newUser._id};
     const token = jwt.sign(payloadToken, process.env.JWT_SECRET, {expiresIn: "7d"})
     // Use created token to set cookie. / Note: .cookie(name, value, options)
-    res.cookie('access-token', payloadToken, {
+    res.cookie('access-token', token, {
       // expiration option
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     })
-    
-    //STEP 4 ->
+    //STEP 5 ->
     //After creating user in DB, respond the user created data to confirm.
     res.status(200).json(
       {
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
-        password: newUser.password
+        password: newUser.password,
+        token: token,
       }
     )
 
