@@ -41,6 +41,17 @@ const registerUser = async (req, res) => {
         password: hashedPassword,
       }
     )
+
+    // STEP 4 ->
+    // Create token based on user id which will be encoded by JWT and saved as cookie.
+    // This will let newly registered user be able to continue using site without having to login.
+    const payloadToken = {userId: newUser._id};
+    const token = jwt.sign(payloadToken, process.env.JWT_SECRET, {expiresIn: "7d"})
+    // Use created token to set cookie. / Note: .cookie(name, value, options)
+    res.cookie('access-token', payloadToken, {
+      // expiration option
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    })
     
     //STEP 4 ->
     //After creating user in DB, respond the user created data to confirm.
