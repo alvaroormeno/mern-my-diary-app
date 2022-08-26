@@ -138,6 +138,20 @@ const updateEntry = async (req, res) => {
     if(!entryToUpdate) {
       return res.status(404).json({error: "Entry to update not found"})
     }
+
+    // STEP 3 ->
+    // Confirm the entryToUpdate users id matches the id of the user logged in.
+    // First we find the logged in user and save it in variable loggedUserId.
+    // Second we match the loggedin user id to the entryToUpdate user id, if no match we stop and send error message.
+    const loggedUserId = await UserModel.findById({
+      _id: req.user._id
+    })
+    if(loggedUserId._id.toString() !== entryToUpdate.user.toString()) {
+      return  res.status(401).json({ error: 'User Id not authorized to delete this entry'})
+    }
+
+
+
     // STEP 3 ->
     //
     const updatedEntry = await EntryModel.findByIdAndUpdate(
