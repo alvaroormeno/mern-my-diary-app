@@ -1,0 +1,27 @@
+.dashboard {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  background-color: aquamarine;
+}
+
+.user_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 75%;
+  height: 50px;
+
+}
+
+.user_info div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
