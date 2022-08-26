@@ -36,8 +36,8 @@ const registerUser = async (req, res) => {
     //Create the user in database
     const newUser = await UserModel.create(
       {
-        name: name,
-        email: email,
+        name: req.body.name,
+        email: req.body.email,
         password: hashedPassword,
       }
     )
