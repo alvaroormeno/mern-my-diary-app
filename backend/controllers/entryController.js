@@ -58,10 +58,10 @@ const createEntry =  async (req, res) => {
 }
 
 //////////////////////////////////////////////////////////////////////
-// GET ALL USERS ENTRIES
+// GET ALL LOGGED IN USER ENTRIES
 //////////////////////////////////////////////////////////////////////
 
-// Description - GET USERS ENTRIES
+// Description - GET ALL LOGGED IN USER ENTRIES
 // Route - GET /api/entry/user
 // PRIVATE - uses requiresAuth middleware
 const getUsersEntries = async (req, res) => {
@@ -148,12 +148,9 @@ const updateEntry = async (req, res) => {
     })
     if(loggedUserId._id.toString() !== entryToUpdate.user.toString()) {
       return  res.status(401).json({ error: 'User Id not authorized to delete this entry'})
-    }
-
-
-
-    // STEP 3 ->
-    //
+    };
+    // STEP 4 ->
+    // Find entry to update with findByIdAndUpdate method which requires 2 params + 1 option
     const updatedEntry = await EntryModel.findByIdAndUpdate(
       // Parameter 1: Filter -> The id to look for...
       {_id: req.params.entryId},
@@ -161,17 +158,16 @@ const updateEntry = async (req, res) => {
       {content: req.body.content},
       // Paremeter 3: Option -> By default this findByIdAndUpdate method returns the document as it was before updated. With this option set to true, the method will return the updated document
       {new: true}
-    )
-    // STEP 4 ->
+    );
+    // STEP 5 ->
     // Return the updated entry
     return res.json(updatedEntry)
-
-  // STEP 5 ->
+  // STEP 6 ->
   // If error is catched, console.log error, set status to error code and send error message
   } catch (error) {
     console.log(error);
     return res.status(500).send(error.message)
-  }
+  };
 };
 
 //////////////////////////////////////////////////////////////////////
