@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 
 // Import controllers to be used with routes in this file.
-// const { getEntries, createEntry } = require('../controllers/entryController.js')
 const { registerUser, loginUser } = require('../controllers/userController.js')
 
 
