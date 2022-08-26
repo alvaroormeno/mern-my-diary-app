@@ -76,7 +76,7 @@ const getUsersEntries = async (req, res) => {
 //////////////////////////////////////////////////////////////////////
 
 // Description - DELETE USERS ENTRY
-// Route - DELETE /api/entry/user
+// Route - DELETE /api/entry/user/:entryId
 // PRIVATE - uses requiresAuth middleware
 const deleteEntry = async (req, res) => {
   try {
@@ -104,4 +104,15 @@ const deleteEntry = async (req, res) => {
   }
 }
 
-module.exports = { getEntries, createEntry, getUsersEntries, deleteEntry}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// Description - UPDATES USERS ENTRY
+// Route - PUT /api/entry/user/:entryId
+// PRIVATE - uses requiresAuth middleware
+ const updateEntry = async (req, res) => {
+
+ }
+
+
+module.exports = { getEntries, createEntry, getUsersEntries, deleteEntry, updateEntry}

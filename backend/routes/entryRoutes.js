@@ -11,7 +11,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import controllers to be used with routes in this file.
-const { getEntries, createEntry, getUsersEntries, deleteEntry } = require('../controllers/entryController.js')
+const { getEntries, createEntry, getUsersEntries, deleteEntry, updateEntry } = require('../controllers/entryController.js')
 
 
 // ROUTE - GET ALL ENTRIES
@@ -25,6 +25,9 @@ router.get('/user', requiresAuth, getUsersEntries)
 
 // ROUTE - DELETE USER'S ENTRIES
 router.delete('/user/:entryId', requiresAuth, deleteEntry)
+
+// ROUTE - UPDATE USER'S ENTRY
+router.put('/user/:entryId', requiresAuth, updateEntry )
 
 
 // Export controllers
