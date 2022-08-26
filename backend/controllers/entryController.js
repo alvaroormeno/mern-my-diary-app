@@ -7,6 +7,7 @@ const EntryModel = require('../models/entryModel.js')
 const requiresAuth = require('../middleware/authentication.js')
 
 //////////////////////////////////////////////////////////////////////
+// TESTING
 //////////////////////////////////////////////////////////////////////
 
 // FOR TESTING!
@@ -28,6 +29,7 @@ const getEntries = async (req, res) => {
 }
 
 //////////////////////////////////////////////////////////////////////
+// CREATE NEW ENTRY
 //////////////////////////////////////////////////////////////////////
 
 // Description - CREATE NEW ENTRY
@@ -55,6 +57,7 @@ const createEntry =  async (req, res) => {
 }
 
 //////////////////////////////////////////////////////////////////////
+// GET ALL USERS ENTRIES
 //////////////////////////////////////////////////////////////////////
 
 // Description - GET USERS ENTRIES
@@ -73,6 +76,7 @@ const getUsersEntries = async (req, res) => {
 }
 
 //////////////////////////////////////////////////////////////////////
+// DELETE USERS ENTRY
 //////////////////////////////////////////////////////////////////////
 
 // Description - DELETE USERS ENTRY
@@ -105,14 +109,48 @@ const deleteEntry = async (req, res) => {
 }
 
 //////////////////////////////////////////////////////////////////////
+// UPDATE USERS ENTRY
 //////////////////////////////////////////////////////////////////////
 
-// Description - UPDATES USERS ENTRY
+// Description - UPDATE USERS ENTRY
 // Route - PUT /api/entry/user/:entryId
 // PRIVATE - uses requiresAuth middleware
- const updateEntry = async (req, res) => {
+const updateEntry = async (req, res) => {
+  try {
+    // STEP 1 ->
+    // Find the entry to update based on the entry _id from the url params
+    const entryToUpdate = await EntryModel.findOne({
+      _id: req.params.entryId
+    });
+    // STEP 2 ->
+    // If entry was not found in step 1, set status to error code and send error message
+    if(!entryToUpdate) {
+      return res.status(404).json({error: "Entry to update not found"})
+    }
+    // STEP 3 ->
+    //
+    const updatedEntry = await EntryModel.findByIdAndUpdate(
+      // Parameter 1: Filter -> The id to look for...
+      {_id: req.params.entryId},
+      // Parameter 2: Update -> What to update, with new value...
+      {content: req.body.content},
+      // Paremeter 3: Option -> By default this findByIdAndUpdate method returns the document as it was before updated. With this option set to true, the method will return the updated document
+      {new: true}
+    )
+    // STEP 4 ->
+    // Return the updated entry
+    return res.json(updatedEntry)
 
- }
+  // STEP 5 ->
+  // If error is catched, console.log error, set status to error code and send error message
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message)
+  }
+};
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 
 module.exports = { getEntries, createEntry, getUsersEntries, deleteEntry, updateEntry}
