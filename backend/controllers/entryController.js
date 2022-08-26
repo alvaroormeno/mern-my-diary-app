@@ -3,6 +3,7 @@
 
 // Import Entry Model
 const EntryModel = require('../models/entryModel.js')
+const UserModel = require('../models/userModel.js')
 // Import authenticaton middlewear
 const requiresAuth = require('../middleware/authentication.js')
 
@@ -95,12 +96,22 @@ const deleteEntry = async (req, res) => {
       return res.status(404).json({error: "Entry to delete not found"})
     }
     // STEP 3 ->
+    // Confirm the entryToDelete users id matches the id of the user logged in.
+    // First we find the logged in user and save it in variable loggedUserId.
+    // Second we match the loggedin user id to the entrytodelete user id, if no match we stop and send error message. 
+    const loggedUserId = await UserModel.findById({
+      _id: req.user._id
+    });
+    if(loggedUserId._id.toString() !== entryToDelete.user.toString()) {
+      return  res.status(401).json({ error: 'User Id not authorized to delete this entry'})
+    }
+    // STEP 4 ->
     // Delete the found entry saved in entryToDelete variable in step 1 with remove method.
     // Respond with success status and send the deleted entry id as confirmation
     await entryToDelete.remove()
     res.status(200).json({deleted_entry_id: req.params.entryId})
     
-  // STEP 4 ->
+  // STEP 5 ->
   // If error in try section, console.log error and send error message with error status.
   } catch (error) {
     console.log(error);
