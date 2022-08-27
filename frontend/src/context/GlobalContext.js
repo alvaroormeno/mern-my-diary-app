@@ -34,7 +34,8 @@ export const GlobalProvider = (props) => {
     
     try {
 
-      const res = await axios.get('api/user/current')
+      const res = await axios.get('/api/user/current')
+      console.log("here is res::" + res)
 
       if(res.data) {
         dispatch({type: "SET_CURRENT_USER", payload: res.data })
