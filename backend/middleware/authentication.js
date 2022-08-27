@@ -47,7 +47,7 @@ const requiresAuth = async (req, res, next) => {
     if(isAuthed) {
       return next()
     } else {
-      return res.status(401).send('NOT AUTHORISED')
+      return res.status(401).send('NOT AUTHORISEDdd')
     }
 }
 

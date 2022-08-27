@@ -13,6 +13,12 @@ const globalReducer = (state, action ) => {
         user: action.payload,
       }
 
+    case "SET_ALL_ENTRIES":
+      return {
+        ...state,
+        entries: action.payload,
+      }
+
 
     default: 
       return state;

@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Dashboard.module.css'
+import axios from 'axios'
 
 import NewEntry from '../../components/newEntry/NewEntry'
 import EntryCard from '../../components/entryCard/EntryCard'
@@ -10,9 +11,26 @@ import { useGlobalContext } from '../../context/GlobalContext.js'
 
 const Dashboard = () => {
 
-  const {user} = useGlobalContext
+  const {user, entries} = useGlobalContext()
 
-  console.log(user)
+  console.log(entries)
+
+
+  const getAllEntries = async () => {
+    try {
+      const res = await axios.get("/api/entry")
+
+      if(res.data) {
+        // console.log(res.data)
+      }
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  getAllEntries()
 
   return (
     <main className={styles.dashboard}>
