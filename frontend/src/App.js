@@ -1,11 +1,13 @@
 
 import Layout from './container/Layout';
 
+import {GlobalProvider} from "./context/GlobalContext.js"
+
 function App() {
   return (
-    <div>
-      <Layout />
-    </div>
+      <GlobalProvider>
+        <Layout />
+      </GlobalProvider>
   );
 }
 
