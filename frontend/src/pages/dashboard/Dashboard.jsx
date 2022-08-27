@@ -6,7 +6,14 @@ import EntryCard from '../../components/entryCard/EntryCard'
 
 import {HiOutlineUserCircle} from 'react-icons/hi'
 
+import { useGlobalContext } from '../../context/GlobalContext.js'
+
 const Dashboard = () => {
+
+  const {user} = useGlobalContext
+
+  console.log(user)
+
   return (
     <main className={styles.dashboard}>
       {/* User Info Container*/}
