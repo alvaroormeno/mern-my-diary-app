@@ -131,8 +131,22 @@ const loginUser = async (req, res) => {
 
 // Description - GET CURRENT USER
 // Route - GET /api/user/current
+const currentUser = async (req, res) => {
+  try {
+    const userNow = await req.user
+   
+
+    if(!userNow) {
+      return res.status(401).json({ error: "NOT AUTHORIZED, PLEASE LOG IN OR REGISTER"})
+    }
+
+    return res.json(userNow)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 
 
-module.exports = { registerUser, loginUser}
+module.exports = { registerUser, loginUser, currentUser}
