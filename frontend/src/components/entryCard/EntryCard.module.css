@@ -1,0 +1,23 @@
+.entry_card {
+  width: 75%;
+  padding: 2rem;
+
+}
+
+.entry_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+  padding-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+  line-height: 1.5rem;
+  
+}

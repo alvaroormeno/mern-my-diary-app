@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Dashboard.module.css'
 
 import NewEntry from '../../components/newEntry/NewEntry'
+import EntryCard from '../../components/entryCard/EntryCard'
 
 import {HiOutlineUserCircle} from 'react-icons/hi'
 
@@ -24,7 +25,9 @@ const Dashboard = () => {
 
       {/* New Entry */}
       <NewEntry />
-      
+
+      {/* Entry Card */}
+      <EntryCard />
 
     </main>
   )
