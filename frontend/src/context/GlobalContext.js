@@ -6,8 +6,9 @@ import axios from 'axios'
 ////////////////////////////////////////////////////////////////////
 // INITIAL GLOBAL STATE
 const initialState = {
-  user: null,
-  entries: []
+  user: [],
+  entries: [],
+  userEntries: [],
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -28,6 +29,13 @@ const globalReducer = (state, action ) => {
         ...state,
         entries: action.payload,
       }
+    
+      case "SET_USER_ENTRIES":
+        return {
+          ...state,
+          userEntries: action.payload,
+        }
+    
 
 
     default: 
@@ -52,7 +60,8 @@ export const GlobalProvider = (props) => {
   const[state, dispatch] = useReducer(globalReducer, initialState)
 
   useEffect( () => {
-    getAllEntries()
+    // getCurrentUser()
+    
   }, [])
 
   // ACTION 1: GET CURRENT USER
@@ -61,10 +70,12 @@ export const GlobalProvider = (props) => {
     try {
 
       const res = await axios.get("/api/user/current")
-      console.log("here is res::" + res)
+
+     
+      
 
       if(res.data) {
-        dispatch({type: "SET_CURRENT_USER", payload: res.data })
+        dispatch({type: "SET_CURRENT_USER", payload: res.data.name })
       }
 
       
@@ -79,6 +90,20 @@ export const GlobalProvider = (props) => {
 
       if(res.data) {
         dispatch({type: "SET_ALL_ENTRIES", payload: res.data })
+      }
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getUserEntries = async () => {
+    try {
+      const res = await axios.get("/api/user")
+
+      if(res.data) {
+        dispatch({type: "SET_USER_ENTRIES", payload: res.data })
       }
 
 

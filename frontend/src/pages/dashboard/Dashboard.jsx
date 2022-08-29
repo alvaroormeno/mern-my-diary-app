@@ -13,15 +13,17 @@ const Dashboard = () => {
 
   const {user, entries} = useGlobalContext()
 
-  console.log(entries)
+  
 
 
   const getAllEntries = async () => {
     try {
       const res = await axios.get("/api/entry")
 
+      
+
       if(res.data) {
-        // console.log(res.data)
+        console.log(res.data)
       }
 
 
@@ -29,8 +31,26 @@ const Dashboard = () => {
       console.log(error)
     }
   }
-
   getAllEntries()
+
+  const getCurrentUser = async () => {
+    
+    try {
+
+      const res = await axios.get("/api/user/current")
+
+
+      if(res.data) {
+        console.log(res.data)
+      }
+
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  getCurrentUser()
+
 
   return (
     <main className={styles.dashboard}>

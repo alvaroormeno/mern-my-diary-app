@@ -12,31 +12,49 @@ const requiresAuth = async (req, res, next) => {
   // Grab token which are created when a user registers or a user logs in and save it on a variable for later use.
   // Create a variable which default value is false to be changed to true once token is verified.
   const token = req.cookies["access-token"]
+  
   let isAuthed = false
 
   // STEP 2 ->
   // Check if there is a token in the request body from step 1 to continue with verification process.
   if(token) {
     try {
-      
+      console.log("here is token:::" + token)
       // STEP 3 ->
       // Deconstruct token to grab "userID" from decoded token using jwt.verify
       // userID had the value of the logged-in/registered user's id.
-      const { userId } = jwt.verify(token, process.env.JWT_SECRET)
+      const {userId} = jwt.verify(token, process.env.JWT_SECRET)
 
-      // STEP 4 ->
-      // Using "userID" from step 1, find the user that matches in the database to confirm existance. This is authorization.
-      const userFound = await UserModel.findById(userId)
-
-      // STEP 5 ->
-      // If a user is found in step 4, make the value of req.user to the data of the user found so it can be used in the controller handler function.
-      // Change value of isAuthed to true since the user found in step 1 matches a user in DB.
-      if(userFound) {
-        req.user = userFound
-        isAuthed = true
+      if(!userId) {
+        return console.log("not workingggg")
       }
 
+      try {
+        // STEP 4 ->
+        // Using "userID" from step 1, find the user that matches in the database to confirm existance. This is authorization.
+        const userFound = await UserModel.findById(userId)
+
+        // STEP 5 ->
+        // If a user is found in step 4, make the value of req.user to the data of the user found so it can be used in the controller handler function.
+        // Change value of isAuthed to true since the user found in step 1 matches a user in DB.
+        if(userFound) {
+          req.user = userFound
+          isAuthed = true
+          console.log(userFound)
+        }
+
+      } catch (error) {
+        
+        isAuthed = false
+      }
+      
+
+      
+
+      
+
     } catch (error) {
+      console.log(error)
       // STEP 6 -> 
       // If there is an error from step 1 to step 5, change the value of isAuthed to false because this means the found user has not been verified.
       isAuthed = false

@@ -47,6 +47,8 @@ const registerUser = async (req, res) => {
     res.cookie('access-token', token, {
       // expiration option
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production"
     })
     //STEP 5 ->
     //After creating user in DB, respond the user created data to confirm.
@@ -105,6 +107,8 @@ const loginUser = async (req, res) => {
     res.cookie("access-token", token, {
       // expiration option
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production"
     })
 
     // STEP 4 ->
